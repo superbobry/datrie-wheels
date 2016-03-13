@@ -24,3 +24,10 @@ script:
   - cd tmp_for_test
   - python -c \"import pytest; pytest.main()\" -s -v datrie
   - cd ..
+
+before_deploy: cd datrie/dist
+addons:
+  artifacts: true
+  s3_region: "eu-west-1"
+  paths:
+    - $(ls *.whl)
