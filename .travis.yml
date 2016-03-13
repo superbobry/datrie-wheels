@@ -12,6 +12,7 @@ install:
   - source terryfy/travis_tools.sh
   - get_python_environment macpython $VERSION venv
   - pip install -U wheel pytest hypothesis
+  - checkout_closest_tag datrie
   - cd datrie
   - python setup.py bdist_wheel
   - rename_wheels dist
