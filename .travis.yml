@@ -21,12 +21,16 @@ install:
 
 script:
   - mkdir tmp_for_test
+  - cp -r datrie/tests tmp_for_test/
   - cd tmp_for_test
-  - python -c "import pytest; pytest.main()" -s -v datrie
+  - python -c "import pytest; pytest.main()" -s -v .
   - cd ..
 
-addons:
-  artifacts: true
-  s3_region: "eu-west-1"
-  paths:
-    - $(ls datrie/dist/*.whl)
+deploy:
+  provider: s3
+  region: "eu-west-1"
+  access_key_id: "$ARTIFACTS_KEY"
+  secret_access_key: "$ARTIFACTS_SECRET"
+  bucket: "$ARTIFACTS_BUCKET"
+  skip_cleanup: true
+  local_dir: datrie/dist
